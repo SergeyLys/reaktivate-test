@@ -5,12 +5,16 @@ import { BookAction } from './Books.action.abstract';
 
 class LoadBooksAction extends BookAction {
   async execute() {
-    const books = await this.model.getAll();
+    try {
+      const books = await this.model.getAll();
 
-    runInAction(() => {
-        this.store.books = books;
-      }
-    )
+      runInAction(() => {
+          this.store.books = books;
+        }
+      );
+    } catch(e) {
+      throw e;
+    }
   }
 }
 
